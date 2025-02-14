@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculus 2</title>
+  <style>
+    /* Basic page styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #FFE6EB;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* No horizontal scroll */
+      position: relative;
+    }
+
+    /* Header styling */
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: #FFB6C1;
+      font-family: 'Cursive', sans-serif;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .header h1 {
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 2px 2px 4px #FF69B4;
+      margin: 0;
+    }
+
+    /* Gallery container */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      position: relative;
+      z-index: 500;
+    }
+
+    /************************************
+     * FLIP CARD LAYOUT & ANIMATIONS    *
+     ************************************/
+    .flip-card {
+      background-color: transparent;
+      width: 90%;
+      max-width: 400px;
+      margin-bottom: 20px;
+      perspective: 1000px; /* for 3D flip */
+      cursor: pointer;
+      position: relative;
+    }
+    /* The inner wrapper that rotates */
+    .flip-card-inner {
+      width: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+      /* Let the front element define the height */
+      /* The back will be absolute, on top of the front */
+    }
+
+    /* FRONT FACE */
+    .flip-card-front {
+      /* Not absolutely positioned, so it defines the card’s height */
+      backface-visibility: hidden;
+      border: 8px solid #FFC0CB;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      position: relative; /* stays in normal flow */
+      z-index: 2;
+    }
+    .flip-card-front img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* BACK FACE */
+    .flip-card-back {
+      position: absolute; /* sits on top of the front */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      transform: rotateY(180deg);
+      background-color: #FF69B4;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      font-size: 1.2em;
+      border: 8px solid #FFC0CB;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* When flipped, rotate the .flip-card-inner */
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Letter styling */
+    .letter {
+      background-color: #FFF0F5;
+      border: 3px dashed #FF69B4;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px;
+      text-align: center;
+      font-size: 1.2em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 500;
+    }
+
+    /* Floating emojis styling */
+    .floating-emoji {
+      position: fixed;
+      bottom: -50px; /* start below the screen */
+      left: 50vw;    /* default, will be randomized in JS */
+      z-index: 9999;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1>💖 Happy Valentine's Day 💖</h1>
+  </div>
+
+  <!-- Gallery with Flip Cards -->
+  <div class="gallery">
+    <!-- Card 1 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/1t3Lz7C7/f6e6e3f3876c.jpg" alt="Photo 1" />
+        </div>
+        <div class="flip-card-back">
+          <p>You’re the sun that colors my sky.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/C5dKR5rW/ec5e95c82af1.jpg" alt="Photo 2" />
+        </div>
+        <div class="flip-card-back">
+          <p>My heart dances to your melody.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/bg2PMc0W/8b3b1fc25f0b.jpg" alt="Photo 3" />
+        </div>
+        <div class="flip-card-back">
+          <p>You’re the ink to my empty pages.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/GvcBZhSC/059a0662207f.jpg" alt="Photo 4" />
+        </div>
+        <div class="flip-card-back">
+          <p>My world breathes because of you.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 5 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/Y73Tr7Lb/ae7b83799a31.jpg" alt="Photo 5" />
+        </div>
+        <div class="flip-card-back">
+          <p>You’re the spark in my cold nights.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 6 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/8DhcfbdL/9b71263b7c4f.jpg" alt="Photo 6" />
+        </div>
+        <div class="flip-card-back">
+          <p>My heart finds home in you.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 7 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/QsQCTfL/4e40140c6dda.jpg" alt="Photo 7" />
+        </div>
+        <div class="flip-card-back">
+          <p>You’re the calm in my storm.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 8 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/zWLQR4qx/86dc5353e9a2.jpg" alt="Photo 8" />
+        </div>
+        <div class="flip-card-back">
+          <p>My dreams speak your name.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 9 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/nNBnDgPn/3ba152386694.jpg" alt="Photo 9" />
+        </div>
+        <div class="flip-card-back">
+          <p>You’re the whisper to my silence.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 10 -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ibb.co/MQ8xn24/a77544b953d2.jpg" alt="Photo 10" />
+        </div>
+        <div class="flip-card-back">
+          <p>My soul echoes your love.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Letter Section -->
+  <div class="letter">
+    <p>
+      Happy Valentine's Day, lovieee,<br /><br />
+      I feel so lucky to have you in my life. Even though we're miles apart, your love is always with me.
+      You're always there for me, lifting me up even when I can’t be by your side. :&lt;<br /><br />
+      I’m truly sorry that I can't be with you today :&lt;. I wish more than anything to celebrate this day together,
+      holding you close and making memories.<br /><br />
+      Thank you for your patience and understanding. I looveeee youuuu more than words can ever express.<br /><br />
+      Please keep my heart safe with you. Happy Valentine's Day, my love.<br /><br />
+      Alsoo, I’ve been feeling like something’s off, and I can’t help but worry that I might’ve done something to upset you. :&lt; 
+      If that’s the case, I’m really sorry po :&lt;. I never want to hurt you, even unintentionally. If there’s anything bothering you, 
+      please let me know bebe :&lt;<br /><br />
+      Forever yours,<br />
+      Jhyric
+    </p>
+  </div>
+
+  <script>
+    /************************
+     *   FLIP CARD LOGIC    *
+     ************************/
+    const flipCards = document.querySelectorAll('.flip-card');
+    flipCards.forEach(card => {
+      card.addEventListener('click', function () {
+        // If this card is already flipped, do nothing.
+        if (this.classList.contains('flipped')) return;
+        // Unflip any other flipped card.
+        document.querySelectorAll('.flip-card.flipped').forEach(flipped => {
+          flipped.classList.remove('flipped');
+        });
+        // Flip the clicked card.
+        this.classList.add('flipped');
+      });
+    });
+
+    /*****************************
+     *   FLOATING EMOJIS LOGIC   *
+     *****************************/
+    const emojis = ["❤️", "💖", "🌹", "💐"];
+    const numEmojis = 30; // Adjust the number of floating emojis here
+
+    for (let i = 0; i < numEmojis; i++) {
+      const emojiEl = document.createElement("div");
+      emojiEl.classList.add("floating-emoji");
+      // Pick a random emoji
+      emojiEl.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      // Randomize size between 20px and 50px
+      const size = Math.random() * 30 + 20;
+      emojiEl.style.fontSize = size + "px";
+
+      // Random left position (0% to 90%)
+      emojiEl.style.left = Math.random() * 90 + "%";
+
+      // Random animation duration between 6s and 12s
+      const duration = Math.random() * 6 + 6;
+      emojiEl.style.animationDuration = duration + "s";
+
+      // Random animation delay between 0s and 3s
+      const delay = Math.random() * 3;
+      emojiEl.style.animationDelay = delay + "s";
+
+      document.body.appendChild(emojiEl);
+    }
+  </script>
+</body>
+</html>
